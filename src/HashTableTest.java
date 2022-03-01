@@ -108,7 +108,7 @@ public class HashTableTest {
         test.insert("a");
         test.insert("UCSD");
         assertEquals("Before rehash # 1: load factor 0.6, 1 collision(s).\n" +
-                "Before rehash # 2: load factor 0.6, 2 collision(s).\n", test.getStatsLog());
+                "Before rehash # 2: load factor 0.6, 3 collision(s).\n", test.getStatsLog());
         test.insert("Student.");
     }
 
@@ -125,8 +125,8 @@ public class HashTableTest {
         test.insert("am");
         test.insert("a");
         test.insert("UCSD");
-        assertEquals("[null, null, World, Hello, !, I, null, a, UCSD, am, null, null," +
-                " null, null, null, null, null, null, null, null]", test.toString());
+        assertEquals("[null, null, null, Hello, null, null, null, null, UCSD," +
+                " am, null, null, World, !, I, null, null, a, null, null]", test.toString());
         test.insert("Student.");
 
     }

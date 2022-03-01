@@ -119,15 +119,20 @@ public class HashTable implements IHashTable {
         StatString = StatString + "Before rehash # " + rehash_count + ": load factor " +
                 load_factor + ", " + num_collision +
                 " collision(s).\n";
+        this.num_collision = 0;
         String[] new_array = new String[this.table.length*2];
+        String[] old_array = new String[this.table.length];
         for (int i = 0; i < this.table.length; i++) {
-            if (this.table[i] != null && this.table[i] != BRIDGE) {
-                new_array[i] = this.table[i];
+            old_array[i] = this.table[i];
+        }
+        this.table = new_array;
+        for (int i = 0; i < old_array.length; i++) {
+            if (old_array[i] != null && old_array[i] != BRIDGE) {
+                this.insert(old_array[i]);
+                this.size--;
             }
         }
-        this.table=new_array;
         rehash_count++;
-        this.num_collision = 0;
     }
 
     private int hashString(String value) {
