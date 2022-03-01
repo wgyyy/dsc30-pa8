@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import static org.junit.Assert.*;
 

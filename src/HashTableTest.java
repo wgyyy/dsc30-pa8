@@ -90,37 +90,44 @@ public class HashTableTest {
         test.insert("am");
         test.insert("a");
         test.insert("UCSD");
-        test.insert("Student");
+        test.insert("Student.");
         assertEquals(20,test.capacity());
     }
 
     @org.junit.Test
     public void getStatsLog() {
         HashTable test =new HashTable(5);
-        assertEquals("Before rehash # 1: load factor 0.0, 0 collision(s).\n", test.getStatsLog());
+        assertEquals("", test.getStatsLog());
         test.insert("Hello");
         test.insert("World");
         test.insert("!");
         test.insert("I");
-        assertEquals("Before rehash # 2: load factor 0.4, 2 collision(s).\n",test.getStatsLog());
         test.insert("am");
+        assertEquals("Before rehash # 1: load factor 0.6, 1 collision(s).\n"
+                , test.getStatsLog());
         test.insert("a");
         test.insert("UCSD");
-        test.insert("Student");
-        assertEquals("Before rehash # 3: load factor 0.4, 2 collision(s).\n",test.getStatsLog());
+        assertEquals("Before rehash # 1: load factor 0.6, 1 collision(s).\n" +
+                "Before rehash # 2: load factor 0.6, 2 collision(s).\n", test.getStatsLog());
+        test.insert("Student.");
     }
 
     @org.junit.Test
     public void testToString() {
         HashTable test =new HashTable(5);
+        assertEquals("[null, null, null, null, null]", test.toString());
         test.insert("Hello");
         test.insert("World");
         test.insert("!");
         test.insert("I");
+        assertEquals("[null, null, World, Hello, !, I, null, null, null, null]",
+                test.toString());
         test.insert("am");
         test.insert("a");
         test.insert("UCSD");
-        test.insert("Student");
-        System.out.println(test.toString());
+        assertEquals("[null, null, World, Hello, !, I, null, a, UCSD, am, null, null," +
+                " null, null, null, null, null, null, null, null]", test.toString());
+        test.insert("Student.");
+
     }
 }

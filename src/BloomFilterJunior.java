@@ -8,8 +8,8 @@
  * And this class can also use the three bollean values to search whether
  * the given value exists.
  *
- * @author Gaoying
- * @since ${2022-0226}
+ * @author Gaoying Wang
+ * @since ${2022-02-26}
  */
 public class BloomFilterJunior {
 

@@ -21,7 +21,8 @@ public class HashTable implements IHashTable {
     private int size; // number of elements stored
     private String[] table; // data table
     private int rehash_count = 1;
-    private int num_collision;
+    private int num_collision = 0;
+    private String StatString = "";
 
     public HashTable() {
         this.size= 0;
@@ -51,6 +52,10 @@ public class HashTable implements IHashTable {
         int count = 0;
         while (this.table[(hashString(value) + count ) % this.capacity()]
                 != null) {
+            if (this.table[(hashString(value) + count ) % this.capacity()]
+                    == BRIDGE){
+                break;
+            }
             count++;
             num_collision++;
         }
@@ -79,11 +84,14 @@ public class HashTable implements IHashTable {
 
     @Override
     public boolean lookup(String value) {
+        if (value == null) {
+            throw new NullPointerException();
+        }
         int count = 0;
         while (this.table[(hashString(value) + count ) % this.capacity()]
                 != null) {
             if (this.table[(hashString(value) + count ) % this.capacity()]
-                    == value) {
+                    .equals(value)) {
                 return true;
             } else {
                 count++;
@@ -103,14 +111,14 @@ public class HashTable implements IHashTable {
     }
 
     public String getStatsLog() {
-        double load_factor = (double) this.size()/this.capacity();
-        return "Before rehash # " + rehash_count + ": load factor " +
-                load_factor + ", " + num_collision +
-                " collision(s).\n";
+        return StatString;
     }
 
     private void rehash() {
-        System.out.println(this.getStatsLog());
+        double load_factor = (double) this.size()/this.capacity();
+        StatString = StatString + "Before rehash # " + rehash_count + ": load factor " +
+                load_factor + ", " + num_collision +
+                " collision(s).\n";
         String[] new_array = new String[this.table.length*2];
         for (int i = 0; i < this.table.length; i++) {
             if (this.table[i] != null && this.table[i] != BRIDGE) {
